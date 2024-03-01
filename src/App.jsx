@@ -19,7 +19,6 @@ function App() {
      
     })
   }
-
   const handelShowAddProject = () => {
     setProjectState(pre=>{
       return{
@@ -49,11 +48,20 @@ function App() {
       }
     })
   }
+  const handelDeleteProject =(id)=>{
+    setProjectState(preState=>{
+      return{
+        selectedProject:undefined,
+        projects:  preState.projects.filter(item=>(item.id !== id))
+      }
+    })
+
+  }
 
   const selectedProject = projectState.projects.find((project)=>{
    return project.id===projectState.SelectedProjectId
   })
-  let content = <SelectedProject project={selectedProject}/>;
+  let content = <SelectedProject project={selectedProject} onDeleteProject={handelDeleteProject}/>;
   if (projectState.SelectedProjectId === null) {
     content = <NewProject onAdd={handelAddNewProject} onCancell={handelCancelAddProject}/>;
   } else if(projectState.SelectedProjectId === undefined){
