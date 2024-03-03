@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import noprojectImage from "../assets/no-projects.png";
 import Button from "./Button.jsx";
-export default function NoProjectSelected({onStartAddProject}) {
+import { ProjectandTaskContext } from "./store/project-task-context.jsx";
+export default function NoProjectSelected() {
+  let {showaddProjectPage} = useContext(ProjectandTaskContext)
   return (
     <div className="mt-24 text-center w-2/3">
       <img
@@ -15,7 +18,7 @@ export default function NoProjectSelected({onStartAddProject}) {
         select a project or get started with a new one
       </p>
       <p className="mt-4">
-        <Button onClick={onStartAddProject}> + Add Project</Button>
+        <Button onClick={showaddProjectPage}> + Add Project</Button>
       </p>
     </div>
   );

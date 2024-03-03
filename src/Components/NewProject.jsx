@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import Input from "./Input.jsx";
 import Modal from "./Modal.jsx";
+import { useContext } from "react";
+import { ProjectandTaskContext } from "./store/project-task-context.jsx";
 
-export default function NewProject({ onAdd, onCancell }) {
+export default function NewProject({onCancell ,cancellAddProject}) {
+  const {addProject} = useContext(ProjectandTaskContext)
   const title = useRef();
   const Description = useRef();
   const DueDate = useRef();
@@ -20,7 +23,7 @@ export default function NewProject({ onAdd, onCancell }) {
      dialog.current.openDialog()
       return
     }
-      onAdd({
+    addProject({
         Title: enterdTitle,
         Description: enterdDescription,
         DueDate: enterdDueDate,
@@ -42,7 +45,7 @@ export default function NewProject({ onAdd, onCancell }) {
         <li>
           <button
             className="text-stone-800 hover:text-stone-950"
-            onClick={onCancell}
+            onClick={cancellAddProject}
           >
             Cancel
           </button>

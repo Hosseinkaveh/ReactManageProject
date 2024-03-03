@@ -1,5 +1,8 @@
+import { useContext } from 'react';
 import Tasks from './Tasks.jsx'
-export default function SelectedProject({ project,onDeleteProject,onDeleteTask,onAddTask,tasks }) {
+import { ProjectandTaskContext } from './store/project-task-context.jsx';
+export default function SelectedProject({ project }) {
+     const {deleteProject} = useContext(ProjectandTaskContext)
     const formattedDate = new Date(project.DueDate).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -13,7 +16,7 @@ export default function SelectedProject({ project,onDeleteProject,onDeleteTask,o
             <h1 className="text-3xl font-bold text-stone-600 mb-2">
               {project.Title}
             </h1>
-            <button className="text-stone-600 hover:text-stone-950" onClick={()=>onDeleteProject(project.id)}>
+            <button className="text-stone-600 hover:text-stone-950" onClick={()=>deleteProject(project.id)}>
               Delete
             </button>
           </div>
@@ -22,7 +25,7 @@ export default function SelectedProject({ project,onDeleteProject,onDeleteTask,o
             {project.Description}
           </p>
         </header>
-        <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
+        <Tasks />
       </div>
     );
   }

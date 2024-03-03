@@ -3,6 +3,7 @@ import NewProject from "./Components/NewProject.jsx";
 import { useState } from "react";
 import NoProjectSelected from "./Components/NoProjectSelected.jsx";
 import SelectedProject from "./Components/SelectedProject.jsx";
+import { ProjectandTaskContext } from "./Components/store/project-task-context.jsx";
 
 function App() {
   const [projectState, setProjectState] = useState({
@@ -12,12 +13,12 @@ function App() {
   });
 
   const handelDeleteTask = (id) => {
-    setProjectState(preState=>{
-      return{
+    setProjectState((preState) => {
+      return {
         ...preState,
-        tasks:preState.tasks.filter(task =>task.id !== id)
-      }
-    })
+        tasks: preState.tasks.filter((task) => task.id !== id),
+      };
+    });
   };
   const handelAddTask = (taskText) => {
     setProjectState((preState) => {
@@ -83,37 +84,37 @@ function App() {
   const selectedProject = projectState.projects.find((project) => {
     return project.id === projectState.SelectedProjectId;
   });
+  
   let content;
   if (projectState.SelectedProjectId === null) {
     content = (
-      <NewProject
-        onAdd={handelAddNewProject}
-        onCancell={handelCancelAddProject}
-      />
+      <NewProject/>
     );
   } else if (projectState.SelectedProjectId === undefined) {
-    content = <NoProjectSelected onStartAddProject={handelShowAddProject} />;
+    content = <NoProjectSelected />;
   } else {
     content = (
-      <SelectedProject
-      tasks={projectState.tasks}
-        onAddTask={handelAddTask}
-        onDeleteTask={handelDeleteTask}
-        project={selectedProject}
-        onDeleteProject={handelDeleteProject}
-      />
+      <SelectedProject project={selectedProject} />
     );
   }
+  let value = {
+    projectState: projectState,
+    addProject: handelAddNewProject,
+    deleteProject: handelDeleteProject,
+    addTask: handelAddTask,
+    deleteTask: handelDeleteTask,
+    showaddProjectPage:handelShowAddProject,
+    cancellAddProject:handelCancelAddProject,
+    selectedProject:handelSelectProject
+  };
 
   return (
-    <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar
-        projectList={projectState}
-        onStartAddProject={handelShowAddProject}
-        onSelectProject={handelSelectProject}
-      />
-      {content}
-    </main>
+    <ProjectandTaskContext.Provider value={value}>
+      <main className="h-screen my-8 flex gap-8">
+        <ProjectsSidebar/>
+        {content}
+      </main>
+    </ProjectandTaskContext.Provider>
   );
 }
 

@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { useState } from "react";
+import { ProjectandTaskContext } from "./store/project-task-context";
 
-export default function NewTask({onAdd}) {
+export default function NewTask() {
+  const {addTask} = useContext(ProjectandTaskContext)
   const[taskText,setTaskText] = useState('')
   const handelChange=(event)=>{
     setTaskText(event.target.value)
   }
   const handelClick=()=>{
-    onAdd(taskText)
+    addTask(taskText)
     setTaskText('')
 
   }
