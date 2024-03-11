@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Button from "./Button.jsx";
 import { ProjectandTaskContext } from "./store/project-task-context.jsx";
 export default function ProjectsSidebar() {
-  let {projectState,showaddProjectPage,selectedProject} = useContext(ProjectandTaskContext)
+  let {projectState,showaddProjectPage,selectProject} = useContext(ProjectandTaskContext)
 
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
@@ -22,7 +22,7 @@ export default function ProjectsSidebar() {
           }
           return (
             <li key={x.id}>
-              <button className={cssClasses} onClick={()=>selectedProject(x.id)}>
+              <button className={cssClasses} onClick={()=>selectProject(x.id)}>
                 {x.Title}
               </button>
             </li>

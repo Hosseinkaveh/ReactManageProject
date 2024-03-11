@@ -4,8 +4,8 @@ import Modal from "./Modal.jsx";
 import { useContext } from "react";
 import { ProjectandTaskContext } from "./store/project-task-context.jsx";
 
-export default function NewProject({onCancell ,cancellAddProject}) {
-  const {addProject} = useContext(ProjectandTaskContext)
+export default function NewProject() {
+  const {addProject,cancellAddProject} = useContext(ProjectandTaskContext)
   const title = useRef();
   const Description = useRef();
   const DueDate = useRef();
